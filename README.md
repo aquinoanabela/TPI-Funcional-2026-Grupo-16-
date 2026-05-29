@@ -38,7 +38,7 @@ defecto"))))
     (t 
      (list color-actual "accion-por-defecto"))))
 
- ;;========================================
+;;========================================
 ;; REQUERIMIENTO 2: Temporizador Automático
 ;; NATURALEZA: Pura
 ;; ESTRATEGIA: Mapeo Matemático / Operación de Módulo
