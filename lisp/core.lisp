@@ -1,5 +1,46 @@
+;; ========================================
+;; FUNCION: Duracion del ciclo
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Calculo aritmetico
+;; IMPACTO EN MEMORIA: No destructiva
+;; ========================================
+
+(defun  duracion-ciclo( seg-rojo seg-amarillo seg-verde) 
+ (+ seg-rojo seg-amarillo seg-verde )
+)
+
+;; ========================================
+;; FUNCION: Recomendacion del ciclo
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Condicional (comparacion de rangos)
+;; IMPACTO EN MEMORIA: No destructiva
+;; ========================================
+
+(defun recomendacion-ciclo (duracion)
+  (cond
+    ((< duracion 0) 'duracion-invalida) ; por si es negativo
+    ((< duracion 35) 'ciclo-demasiado-corto)
+    ((and (>= duracion 35) (<= duracion 150)) 'ciclo-optimo)
+    ((> duracion 150) 'ciclo-demasiado-largo)
+  )
+) ;ver si la manera que muestro el msj esta bien
+
+;; ========================================
+;; FUNCION: Ciclos por tiempo
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Composicion funcional y calculo aritmetico
+;; IMPACTO EN MEMORIA: No destructiva
+;; ========================================
+
+(defun ciclos-por-tiempo (minutos seg-rojo seg-amarillo seg-verde)
+
+   (truncate ; truncate para eliminar la parte fraccionaria del resultado de la division
+      (/ (* minutos 60) (duracion-ciclo seg-rojo seg-amarillo seg-verde))
+    )
+)
+
 ;; ========================================================
-;; FUNCIÓN: porcentaje
+;; FUNCIÓN: Porcentaje
 ;; NATURALEZA: Pura
 ;; ESTRATEGIA: Calculo aritmetico 
 ;; IMPACTO: No destructiva
@@ -10,7 +51,7 @@
 )
 
 ;; ========================================================
-;; FUNCIÓN: informe-distribucion-temporal
+;; FUNCIÓN: Informe distribucion temporal
 ;; NATURALEZA: Pura
 ;; ESTRATEGIA: Composicion funcional
 ;; IMPACTO: No destructiva
