@@ -5,8 +5,8 @@
 ;; IMPACTO EN MEMORIA: No destructiva
 ;; ========================================
 
-(defun  duracion-ciclo( seg-rojo seg-amarillo seg-verde) 
- (+ seg-rojo seg-amarillo seg-verde ) ; validar aca
+(defun duracion-ciclo (&optional (seg-rojo 90)(seg-amarillo 6)(seg-verde 120));; &optional utiliza valores por defecto cuando llamas a la funcion sin pasarle parametros
+    (+ seg-rojo seg-amarillo seg-verde)                                       ;; pero dando la opcion a pasar parametros sin generar errores
 )
 
 ;; ========================================
@@ -56,16 +56,14 @@
 
 ;; ========================================================
 ;; FUNCIÓN: Informe distribucion temporal
-;; NATURALEZA: Pura
+;; NATURALEZA: Pura (usamos format nil)
 ;; ESTRATEGIA: Composicion funcional
 ;; IMPACTO: No destructiva
 ;; ========================================================
 (defun informe-distribucion-temporal()
-    (let ((total-ciclo(+ 90 6 120))) ; por si mas adelante se necesita modificar la temporizacion de algun color 
-    (list 'rojo (porcentaje 90 total-ciclo)
-            'amarillo (porcentaje 6 total-ciclo)
-            'verde (porcentaje 120 total-ciclo)
-        )
+    (list 'rojo (format nil "~,2f%" (porcentaje 90 (duracion-ciclo))) ;; reutilizamos la funcion duracion-ciclo
+          'amarillo (format nil "~,2f%" (porcentaje 6 (duracion-ciclo))) ;; con ~,2f para formatear y quede con 2 dicimales
+          'verde (format nil "~,2f%" (porcentaje 120 (duracion-ciclo)))
     )
 )
 
