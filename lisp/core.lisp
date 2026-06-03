@@ -6,7 +6,7 @@
 ;; ========================================
 
 (defun  duracion-ciclo( seg-rojo seg-amarillo seg-verde) 
- (+ seg-rojo seg-amarillo seg-verde )
+ (+ seg-rojo seg-amarillo seg-verde ) ; validar aca
 )
 
 ;; ========================================
@@ -28,15 +28,19 @@
 ;; ========================================
 ;; FUNCION: Ciclos por tiempo
 ;; NATURALEZA: Pura
-;; ESTRATEGIA: Composicion funcional y calculo aritmetico
+;; ESTRATEGIA: Composicion funcional, calculo aritmetico y validación condicional
 ;; IMPACTO EN MEMORIA: No destructiva
 ;; ========================================
 
-(defun ciclos-por-tiempo (minutos seg-rojo seg-amarillo seg-verde)
+(defun ciclos-por-tiempo (minutos) 
+   (let ((seg-rojo 90)
+         (seg-amarillo 6)
+         (seg-verde 120))
 
-   (truncate ; truncate para eliminar la parte fraccionaria del resultado de la division
-      (/ (* minutos 60) (duracion-ciclo seg-rojo seg-amarillo seg-verde))
-    )
+      (if (< minutos 0) 'valor-invalido
+          (nth-value 0(truncate (* minutos 60)(duracion-ciclo seg-rojo seg-amarillo seg-verde))) ; con nth-value 0 me quedo con el primer valor 
+      )
+   )
 )
 
 ;; ========================================================
