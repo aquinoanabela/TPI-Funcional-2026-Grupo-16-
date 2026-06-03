@@ -41,3 +41,15 @@ Repositorio para el TPI de Programación Funcional (2026) - Desarrollo en Common
         (format nil "Tiempo ~A: la luz ha cambiado de ~A a ~A" tiempo color-anterior color-nuevo)
     )
 )
+;; ============================================================
+;; REQUERIMIENTO 4a, 4b: Análisis de Ciclos 
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Composición y Cálculo Aritmético
+;; IMPACTO EN MEMORIA: No destructiva
+;; ============================================================
+
+"4a. Calcula la duración total de un ciclo completo (Rojo -> Verde -> Amarillo) basado en las entradas de tiempo provistas."
+(defun duracion-ciclo (segundos-rojo segundos-verde segundos-amarillo)
+(+ segundos-rojo segundos-verde segundos-amarillo))
+
+
