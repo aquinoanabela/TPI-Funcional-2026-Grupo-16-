@@ -1,3 +1,4 @@
+
 ;;======================================== 
 ;; REQUERIMIENTO 1: Estados de Transición 
 ;; NATURALEZA: Pura 
@@ -17,3 +18,24 @@
         )
     )
 )
+
+;;======================================== 
+;; REQUERIMIENTO 3: Sistemas de auditoria terminal 
+;; NATURALEZA: Impura (Efecto secundario de salida en la terminal)
+;; ESTRATEGIA: Operaciones de salida
+;; IMPACTO EN MEMORIA: No destructiva 
+;;========================================
+
+(defun sistema_auditoria()
+    (let* ((color-nuevo (timer (- (get-universal-time) 2208988800))) ;;Se pasa por parametro el tiempo actual en segundos
+        (color-anterior (cond   
+                            ((eql color-nuevo 'verde) 'rojo)
+                            ((eql color-nuevo 'amarillo) 'verde)
+                            (t 'amarillo) 
+                        )
+        ))
+        (format nil "Tiempo ~A: la luz ha cambiado de ~A a ~A" (- (get-universal-time) 2208988800) color-anterior color-nuevo)
+    )
+)
+
+;; (- (get-universal-time) 2208988800) que mide los segundos desde el 1 de enero de 1900  para calcular el tiempo Unix se le resta ese numero fijo de segundos
