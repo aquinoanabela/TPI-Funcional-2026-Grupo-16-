@@ -110,3 +110,29 @@ Repositorio para el TPI de Programación Funcional (2026) - Desarrollo en Common
  )
 )
 
+;;========================================================
+REQUERIMIENTO 6: Informe de Distribución Temporal
+;; FUNCIÓN: Porcentaje
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Calculo aritmetico 
+;; IMPACTO: No destructiva
+;; ========================================================
+
+(defun porcentaje(tiempo-color total-ciclo) ; Total del ciclo rojo 90 + amarillo 6 + verde 120 = 216 seg
+    (* (/ tiempo-color (float total-ciclo)) 100)
+)
+
+;; ========================================================
+;; FUNCIÓN: Informe distribucion temporal
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Composicion funcional
+;; IMPACTO: No destructiva
+;; ========================================================
+
+(defun informe-distribucion-temporal()
+    (list 'rojo (format nil "~,2f%" (porcentaje 90 (duracion-ciclo))) ;;Sacamos el let y lo cambiamos por la funcion duracion-ciclo
+          'amarillo (format nil "~,2f%" (porcentaje 6 (duracion-ciclo))) ;;Agregamos format para que corte los centesimos a 2 
+          'verde (format nil "~,2f%" (porcentaje 120 (duracion-ciclo)))
+    )
+)
+
