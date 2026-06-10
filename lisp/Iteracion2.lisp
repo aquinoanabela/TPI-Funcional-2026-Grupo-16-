@@ -1,10 +1,12 @@
+(load "C:/Users/Fernanda/quicklisp/setup.lisp") ; para poder ejecutar de momento sino no me funciona
+(ql:quickload "local-time") ;librería local-time 
+
 ;; ========================================================
 ;; FUNCIÓN: sistema-auditoria
 ;; NATURALEZA: Impura (escribe un archivo)
 ;; ESTRATEGIA: Persistencia de datos
 ;; IMPACTO: Destructiva (modifica un archivo externo)
 ;; ========================================================
-
 
 
 (defun sistema-auditoria ()
@@ -40,5 +42,32 @@
                  color-nuevo
          )
       )
+   )
+)
+
+;; ========================================================
+;; FUNCIÓN: obtener-fecha-formateada
+;; NATURALEZA: Impura
+;; ESTRATEGIA: Uso de librería externa y formateo de fecha/hora
+;; IMPACTO: No destructiva
+;; ========================================================
+
+(defun obtener-fecha-formateada()
+   (local-time:format-timestring ; transforma una fecha o hora en un string
+      nil; eso hace que no imprima sino que devuelva un string al igual que se usa format nil
+      (local-time:now); la fecha actual UTC (Zona Horaria Universal)
+      :format '( (:year 4) ; para el año 4d por 2026
+                  "-"
+                  (:month 2); 2d para mes
+                  "-"
+                  (:day 2) ;2d para dia
+                  " " 
+                  (:hour 2) ;horas
+                  ":"
+                  (:min 2) ;min
+                  ":"
+                  (:sec 2);seg
+
+               )
    )
 )
