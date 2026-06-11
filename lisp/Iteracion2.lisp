@@ -35,11 +35,10 @@
                        :if-does-not-exist :create ;si no existe el archivo lo crea
                      )
 
-         (format stream ;para escribir en el archivo
-                 "Tiempo ~A: la luz ha cambiado de ~A a ~A~%"
-                 tiempo-actual
-                 color-anterior
-                 color-nuevo
+         (format stream "[~A] la luz ha cambiado de ~A a ~A~%"
+                     (obtener-fecha-formateada)
+                     color-anterior
+                     color-nuevo
          )
       )
    )
