@@ -1,4 +1,4 @@
-;Aca va el código de los requerimientos 1 al 6 
+
 # TPI-Funcional-2026-Grupo-16-
 Repositorio para el TPI de Programación Funcional (2026) - Desarrollo en Common Lisp y análisis comparativo. Grupo [16].
 ;;========================================
@@ -62,3 +62,31 @@ Repositorio para el TPI de Programación Funcional (2026) - Desarrollo en Common
 )
 
 ;; (- (get-universal-time) 2208988800) que mide los segundos desde el 1 de enero de 1900  para calcular el tiempo Unix se le resta ese numero fijo de segundos.
+
+;;=============================================================== ;; REQUERIMIENTO 4a, 4b: Análisis de Ciclos ;; NATURALEZA: Pura ;; ESTRATEGIA: Composición y Cálculo Aritmético ;; IMPACTO EN MEMORIA: No destructiva ;; ============================================================
+
+"4a. Calcula la duración total de un ciclo completo (Rojo -> Verde -> Amarillo) basado en las entradas de tiempo provistas."
+
+(defun duracion-ciclo (&optional (seg-rojo 90)(seg-amarillo 6)(seg-verde 120));;&optional utiliza valores por defecto cuando llamas a la función sin pasarle parámetros
+
+(+ seg-rojo seg-amarillo seg-verde);; pero dando la opcion a pasar parametros sin generar errores)
+
+;;4b. Provee una recomendación de optimización basada en estándares de ingeniería de tráfico y la psicología del conductor (Rango óptimo: 35-150 segundos).
+
+(defun recomendacion-ciclo (duracion) (cond ((< duracion 0) 'duracion-invalida) ; por si es negativo ((< duracion 35) 'ciclo-demasiado-corto) ((and (>= duracion 35) (<= duracion 150)) 'ciclo-optimo) ((> duracion 150) 'ciclo-demasiado-largo) ) )
+
+;; =============================================================== ;; REQUERIMIENTO 5: Planificación Temporal ;; NATURALEZA: Pura ;; ESTRATEGIA: Cálculo aritmético/Truncamiento hacia abajo ;; IMPACTO EN MEMORIA: No destructiva ;;===================================================
+
+(defun ciclos-por-tiempo (minutos) (let ((seg-rojo 90)(seg-amarillo 6)(seg-verde 120)) (if (or ;para validar que ni uno sea negativo (< minutos 0) (< seg-rojo 0) (< seg-amarillo 0) (< seg-verde 0) ) 'valor-invalido ; si alguno es T es invalido
+
+(nth-value 0 (truncate (* minutos 60) (duracion-ciclo seg-rojo seg-amarillo seg-verde)))
+
+) ) )
+
+;;========================================================== REQUERIMIENTO 6: Informe de Distribución Temporal ;; FUNCIÓN: Porcentaje ;; NATURALEZA: Pura ;; ESTRATEGIA: Calculo aritmetico ;; IMPACTO: No destructivo ;; ==========================================================
+
+(defun porcentaje(tiempo-color total-ciclo) ; Total del ciclo rojo 90 + amarillo 6 + verde 120 = 216 seg (* (/ tiempo-color (float total-ciclo)) 100) )
+
+;; ========================================================== ;; FUNCIÓN: Informe distribución temporal ;; NATURALEZA: Pura ;; ESTRATEGIA: Composición funcional ;; IMPACTO: No destructivo ;; ==========================================================
+
+(defun informe-distribucion-temporal() (lista 'rojo (formato nil ",2f%" (porcentaje 90 (duracion-ciclo))) ;;Sacamos el let y lo cambiamos por la funcion duracion-ciclo 'amarillo (format nil ",2f%" (porcentaje 6 (duracion-ciclo))) ;;Agregamos format para que corte los centesimos a 2 'verde (format nil "~,2f%" (porcentaje 120 (duracion-ciclo))) ) )
