@@ -25,6 +25,7 @@ let timer_con_intermitencia tiempo_unix =
     let residuo = tiempo_unix mod 225 in
     
     (* Usamos match con condiciones 'when' en vez de ifs anidados *)
+    
     match residuo with
     | r when r < 90  -> EnRojo
     | r when r < 93  -> RojoIntermitente
