@@ -1,6 +1,7 @@
 (load "C:/Users/Fernanda/quicklisp/setup.lisp") ; para poder ejecutar de momento sino no me funciona
 (ql:quickload "local-time") ;librería local-time 
 
+;;REQUERIMIENTO 3: Sistema de Auditoría Y FASE 2 : Autonomia y Ecosistema
 ;; ========================================================
 ;; FUNCIÓN: sistema-auditoria
 ;; NATURALEZA: Impura (escribe un archivo)
@@ -8,9 +9,7 @@
 ;; IMPACTO: Destructiva (modifica un archivo externo)
 ;; ========================================================
 
-
-(defun sistema-auditoria ()
-
+(defun sistema-auditoria () ; no recibe parametros ya que usamos para escribir en el archivo
    (let* (
           (tiempo-actual (- (get-universal-time) 2208988800))
 
@@ -43,14 +42,13 @@
       )
    )
 )
-
 ;; ========================================================
 ;; FUNCIÓN: obtener-fecha-formateada
-;; NATURALEZA: Impura
-;; ESTRATEGIA: Uso de librería externa y formateo de fecha/hora
+;; NATURALEZA: Impura (depende del reloj del sistema)
+;; ESTRATEGIA: Uso de librería externa y formateo de fecha/hora 
 ;; IMPACTO: No destructiva
 ;; ========================================================
-
+;; decidimos crear esta fncion para que sea mas reutilizable a la hora de formatear la fecha asi la fn "sistema-auditoria" no quedaba tan extensa
 (defun obtener-fecha-formateada()
    (local-time:format-timestring ; transforma una fecha o hora en un string
       nil; eso hace que no imprima sino que devuelva un string al igual que se usa format nil
@@ -69,4 +67,84 @@
 
                )
    )
+)
+
+
+;;REQUERIMIENTO 4: Análisis de Ciclos Semafóricos
+;; ========================================
+;; FUNCION: duracion-del-ciclo
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Validación de datos y cálculo aritmético
+;; IMPACTO EN MEMORIA: No destructiva
+;; ========================================
+(defun duracion-ciclo (&optional (seg-rojo 90)(int-rojo 3)(seg-amarillo 6)(int-amarillo 3)(seg-verde 120)(int-verde 3));; &optional utiliza valores por defecto cuando llamas a la funcion sin pasarle parametros
+     (if (every #'(lambda (color) ; EVERY verifica que todos los elementos de la lista cumplen una condicion(es depredicado)
+                 (and (integerp color)
+                      (>= color 0)))
+             (list seg-rojo seg-amarillo seg-verde
+                   int-rojo int-amarillo int-verde))
+
+      (+ seg-rojo seg-amarillo seg-verde
+         int-rojo int-amarillo int-verde)
+
+      'error-tiempo-invalido)
+)
+;; ========================================
+;; FUNCION: recomendacion-ciclo
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Validación y clasificación por rangos
+;; IMPACTO EN MEMORIA: No destructiva
+;; ========================================
+(defun recomendacion-ciclo (duracion)
+  (cond
+    ((not (integerp duracion)) 'error-tiempo-invalido); validar si es nro entero
+    ((< duracion 0) 'duracion-invalida) ; por si es negativo
+    ((< duracion 35) 'ciclo-demasiado-corto)
+    ((and (>= duracion 35) (<= duracion 150)) 'ciclo-optimo)
+    ((> duracion 150) 'ciclo-demasiado-largo)
+  )
+) 
+
+
+;; REQUERIMIENTO 5: Planificación Temporal
+;; ========================================
+;; FUNCION: ciclos-por-tiempo
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Validación, conversion de unidades (de m a s) y cálculo aritmético
+;; IMPACTO EN MEMORIA: No destructiva
+;; ========================================
+(defun ciclos-por-tiempo (minutos) 
+    (if (and (integerp minutos)(>= minutos 0))
+      (nth-value 0(truncate (* minutos 60)(duracion-ciclo)));TRUNCATE devuelve dos valores: el cociente entero y el resto y con NTH-VALUE 0 para obtener solo la cantidad de ciclos completos.
+        'valor-invalido                                                       
+    )
+)
+
+
+;; REQUERIMIENTO 6: Informe de Distribución Temporal
+;; ========================================================
+;; FUNCIÓN: informe-distribucion-temporal
+;; NATURALEZA: Pura (usamos format nil)
+;; ESTRATEGIA: Composición funcional y construccion de listas
+;; IMPACTO: No destructiva
+;; ========================================================
+(defun informe-distribucion-temporal()
+    (list 'rojo (format nil "~,2f%" (porcentaje 90 (duracion-ciclo))) ;;Sacamos el let y lo cambiamos por la funcion duracion-ciclo
+          'rojo-intermitente (format nil "~,2f%" (porcentaje 3 (duracion-ciclo)))
+          'amarillo (format nil "~,2f%" (porcentaje 6 (duracion-ciclo))) ;; ~,2F formatea el nro con dos decimales
+          'amarillo-intermitente (format nil "~,2f%" (porcentaje 3 (duracion-ciclo)))
+          'verde (format nil "~,2f%" (porcentaje 120 (duracion-ciclo)))
+          'verde-intermitente (format nil "~,2f%" (porcentaje 3 (duracion-ciclo)))
+    )
+)
+;; ========================================================
+;; FUNCIÓN: porcentaje
+;; NATURALEZA: Pura
+;; ESTRATEGIA: Validación y calculo porcentual
+;; IMPACTO: No destructiva
+;; ========================================================
+(defun porcentaje(tiempo-color total-ciclo) ; Total del ciclo rojo 90 + 3 , amarillo 6 + 3,  verde 120 + 3 = 225 seg
+    (if (and (integerp tiempo-color)(>= tiempo-color 0)(integerp total-ciclo)(>= total-ciclo 0))(* (/ tiempo-color (float total-ciclo)) 100)
+        'valor-invalido
+    )
 )
