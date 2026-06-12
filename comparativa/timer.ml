@@ -6,6 +6,8 @@ let timer_con_intermitencia tiempo_unix =
 else 
   (*resto de la division, variable local*)
   let residuo = tiempo_unix mod 225 in
+  (*aqui no es necesario verificar que sea un entero, ya que de no serlo dara un error porque la estructura mod solo puese 
+  utilizarse en valores enteros*)
 
   (*aqui, a r se le asigna el valor del residuo, y luego se compara con los valores*)
   match residuo with
