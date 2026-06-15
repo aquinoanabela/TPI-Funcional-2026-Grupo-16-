@@ -11,9 +11,9 @@
 
 (defun sistema-auditoria () ; no recibe parametros ya que usamos para escribir en el archivo
    (let* (
-          (tiempo-actual (- (get-universal-time) 2208988800))
-
-          (color-nuevo (timer tiempo-actual))
+          (tiempo-actual (- (get-universal-time) 2208988800)); get-universal-time cuenta segundos desde 01/01/1900 y se resta 2208988800s (diferencia entre 1900 y 1970) 
+                                                            ; para obtener un nro compatible con la funcion timer
+          (color-nuevo (timer_con_intermitencia tiempo-actual))
 
           (color-anterior
              (cond
