@@ -127,7 +127,7 @@ Informe de distribución temporal.
 
 ## Video de defensa
 
-Enlace al video de demostración: (Agregar URL de YouTube)
+Enlace al video de demostración: https://youtu.be/y5tSnMnaFmE
 
 ---
 
