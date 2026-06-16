@@ -66,26 +66,27 @@
 ;; IMPACTO: Destructiva (modifica un archivo externo)
 ;; ========================================================
 
-(defun sistema-auditoria () ; no recibe parametros ya que usamos para escribir en el archivo
+(defun sistema-auditoria ()
    (let* (
-          (tiempo-actual (- (get-universal-time) 2208988800)); get-universal-time cuenta segundos desde 01/01/1900 y se resta 2208988800s (diferencia entre 1900 y 1970) 
-                                                            ; para obtener un nro compatible con la funcion timer
+
+          (tiempo-actual (- (get-universal-time) 2208988800)); get-universal-time cuenta segundos desde 01/01/1900 y se resta 2208988800s (diferencia entre 1900 y 1970)
+
           (color-nuevo (timer_con_intermitencia tiempo-actual))
 
           (color-anterior
              (cond
-                ((eql color-nuevo 'verde) 'rojo-intermitente)
-                ((eql color-nuevo 'rojo-intermitente) 'rojo)
-                ((eql color-nuevo 'rojo) 'amarillo-intermitente)
-                ((eql color-nuevo 'amarillo-intermitente) 'amarillo)
-                ((eql color-nuevo 'verde-intermitente) 'verde)
+                ((eql color-nuevo 'en-verde) 'rojo-intermitente)
+                ((eql color-nuevo 'rojo-intermitente) 'en-rojo)
+                ((eql color-nuevo 'en-rojo) 'amarillo-intermitente)
+                ((eql color-nuevo 'amarillo-intermitente) 'en-amarillo)
+                ((eql color-nuevo 'verde-intermitente) 'en-verde)
                 (t 'verde-intermitente)
              )
           )
       )
 
       (with-open-file (stream
-                       "informe-ejecucion-semaforo.txt" ;nombre del archivo
+                       "informe-ejecucion-semaforo.txt";nombre del archivo 
                        :direction :output ; "output" abre el archivo para escribir
                        :if-exists :append ; para que agregue nuevas lineas y que no sobreescriba las anteriores
                        :if-does-not-exist :create ;si no existe el archivo lo crea
@@ -105,7 +106,7 @@
 ;; ESTRATEGIA: Uso de librería externa y formateo de fecha/hora 
 ;; IMPACTO: No destructiva
 ;; ========================================================
-;; decidimos crear esta fncion para que sea mas reutilizable a la hora de formatear la fecha asi la fn "sistema-auditoria" no quedaba tan extensa
+
 (defun obtener-fecha-formateada()
    (local-time:format-timestring ; transforma una fecha o hora en un string
       nil; eso hace que no imprima sino que devuelva un string al igual que se usa format nil
@@ -125,6 +126,7 @@
                )
    )
 )
+
 
 
 ;;REQUERIMIENTO 4: Análisis de Ciclos Semafóricos
