@@ -56,7 +56,7 @@ Además, se integra la librería `local-time` mediante Quicklisp para mejorar el
 ```lisp
 (load "lisp/iteracion2/core.lisp")
 ```
-**Importante:** la librería `local-time` debe cargarse antes de ejecutar `lisp/iteracion2/core.lisp`, ya que el proyecto utiliza las funciones `local-time:now` y `local-time:format-timestring` para generar fechas legibles en el sistema de auditoría.
+`Importante: la librería `local-time` debe cargarse antes de ejecutar `lisp/iteracion2/core.lisp`, ya que el proyecto utiliza las funciones `local-time:now` y `local-time:format-timestring` para generar fechas legibles en el sistema de auditoría.`
 ---
 
 ## Funcionalidades implementadas
