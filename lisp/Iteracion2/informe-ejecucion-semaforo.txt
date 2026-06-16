@@ -1,0 +1,3 @@
+[2026-06-15 23:59:27] la luz ha cambiado de ROJO-INTERMITENTE a EN-VERDE
+[2026-06-15 23:59:28] la luz ha cambiado de ROJO-INTERMITENTE a EN-VERDE
+[2026-06-15 23:59:29] la luz ha cambiado de ROJO-INTERMITENTE a EN-VERDE
