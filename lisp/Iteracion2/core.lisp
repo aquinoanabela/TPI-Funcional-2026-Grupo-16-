@@ -1,4 +1,3 @@
-(load "C:/Users/Fernanda/quicklisp/setup.lisp") ; para poder ejecutar de momento sino no me funciona
 (ql:quickload "local-time") ;librería local-time
 
 ;;======================================
@@ -69,8 +68,9 @@
 
 (defun sistema-auditoria ()
    (let* (
-          (tiempo-actual (- (get-universal-time) 2208988800)) 
-                                                            
+
+          (tiempo-actual (- (get-universal-time) 2208988800)); get-universal-time cuenta segundos desde 01/01/1900 y se resta 2208988800s (diferencia entre 1900 y 1970)
+
           (color-nuevo (timer_con_intermitencia tiempo-actual))
 
           (color-anterior
@@ -86,10 +86,10 @@
       )
 
       (with-open-file (stream
-                       "informe-ejecucion-semaforo.txt" 
-                       :direction :output 
-                       :if-exists :append 
-                       :if-does-not-exist :create 
+                       "informe-ejecucion-semaforo.txt";nombre del archivo 
+                       :direction :output ; "output" abre el archivo para escribir
+                       :if-exists :append ; para que agregue nuevas lineas y que no sobreescriba las anteriores
+                       :if-does-not-exist :create ;si no existe el archivo lo crea
                      )
 
          (format stream "[~A] la luz ha cambiado de ~A a ~A~%"
@@ -108,12 +108,21 @@
 ;; ========================================================
 
 (defun obtener-fecha-formateada()
+<<<<<<< Updated upstream
    (local-time:format-timestring 
       nil
       (local-time:now)
       :format '( (:year 4) 
                   "-"
                   (:month 2)
+=======
+   (local-time:format-timestring ; transforma una fecha o hora en un string
+      nil ; eso hace que no imprima sino que devuelva un string al igual que se usa format nil
+      (local-time:now) ; la fecha actual UTC (Zona Horaria Universal)
+      :format '( (:year 4) ; para el año 4d por 2026
+                  "-"
+                  (:month 2) ; 2d para mes
+>>>>>>> Stashed changes
                   "-"
                   (:day 2) 
                   " " 
