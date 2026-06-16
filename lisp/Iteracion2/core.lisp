@@ -108,33 +108,25 @@
 ;; ========================================================
 
 (defun obtener-fecha-formateada()
-<<<<<<< Updated upstream
-   (local-time:format-timestring 
-      nil
-      (local-time:now)
-      :format '( (:year 4) 
-                  "-"
-                  (:month 2)
-=======
    (local-time:format-timestring ; transforma una fecha o hora en un string
-      nil ; eso hace que no imprima sino que devuelva un string al igual que se usa format nil
-      (local-time:now) ; la fecha actual UTC (Zona Horaria Universal)
+      nil; eso hace que no imprima sino que devuelva un string al igual que se usa format nil
+      (local-time:now); la fecha actual UTC (Zona Horaria Universal)
       :format '( (:year 4) ; para el año 4d por 2026
                   "-"
-                  (:month 2) ; 2d para mes
->>>>>>> Stashed changes
+                  (:month 2); 2d para mes
                   "-"
-                  (:day 2) 
+                  (:day 2) ;2d para dia
                   " " 
-                  (:hour 2) 
+                  (:hour 2) ;horas
                   ":"
-                  (:min 2) 
+                  (:min 2) ;min
                   ":"
-                  (:sec 2)
+                  (:sec 2);seg
 
                )
    )
 )
+
 
 
 ;;REQUERIMIENTO 4: Análisis de Ciclos Semafóricos
