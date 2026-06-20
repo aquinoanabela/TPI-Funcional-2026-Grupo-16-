@@ -7,7 +7,7 @@
 ; ; IMPACTO EN MEMORIA: No destructiva (Retorna una lista nueva) 
 ;;=====================================
 
- (defun transicion(color-actual cambiar-a) ;; Cambiar y hacer la validacion del ciclo Verde-amarillo amarillo-rojo  rojo-verde (hacer validacion inversa)
+ (defun transicion (color-actual cambiar-a) ;; Cambiar y hacer la validacion del ciclo Verde-amarillo amarillo-rojo  rojo-verde (hacer validacion inversa)
     (let ((colores_incluidos (list 'en-rojo 'en-amarillo 'en-verde 'rojo-intermitente 'verde-intermitente 'amarillo-intermitente))
          (colores_cambio (list 'rojo 'amarillo 'verde)))
          (cond 
@@ -36,7 +36,7 @@
 ;; ESTRATEGIA: Mapeo Matemático / Operación de Módulo 
 ;; IMPACTO EN MEMORIA: No destructiva 
 ;;======================================
-(defun timer_con_intermitencia (tiempo-unix)
+(defun timer (tiempo-unix)
     "Calcula el color activo basándose en el tiempo Unix con validación de entrada."
     (cond
     ;; VALIDACIÓN: Verifica que el dato sea un número entero y no sea negativo
@@ -71,7 +71,7 @@
 
           (tiempo-actual (- (get-universal-time) 2208988800)); get-universal-time cuenta segundos desde 01/01/1900 y se resta 2208988800s (diferencia entre 1900 y 1970)
 
-          (color-nuevo (timer_con_intermitencia tiempo-actual))
+          (color-nuevo (timer tiempo-actual))
 
           (color-anterior
              (cond
@@ -107,7 +107,7 @@
 ;; IMPACTO: No destructiva
 ;; ========================================================
 
-(defun obtener-fecha-formateada()
+(defun obtener-fecha-formateada ()
    (local-time:format-timestring ; transforma una fecha o hora en un string
       nil; eso hace que no imprima sino que devuelva un string al igual que se usa format nil
       (local-time:now); la fecha actual UTC (Zona Horaria Universal)
@@ -187,7 +187,7 @@
 ;; ESTRATEGIA: Composición funcional y construccion de listas
 ;; IMPACTO: No destructiva
 ;; ========================================================
-(defun informe-distribucion-temporal()
+(defun informe-distribucion-temporal ()
     (list 'rojo (format nil "~,2f%" (porcentaje 90 (duracion-ciclo))) ;;Sacamos el let y lo cambiamos por la funcion duracion-ciclo
           'rojo-intermitente (format nil "~,2f%" (porcentaje 3 (duracion-ciclo)))
           'amarillo (format nil "~,2f%" (porcentaje 6 (duracion-ciclo))) ;; ~,2F formatea el nro con dos decimales
@@ -202,7 +202,7 @@
 ;; ESTRATEGIA: Validación y calculo porcentual
 ;; IMPACTO: No destructiva
 ;; ========================================================
-(defun porcentaje(tiempo-color total-ciclo) ; Total del ciclo rojo 90 + 3 , amarillo 6 + 3,  verde 120 + 3 = 225 seg
+(defun porcentaje (tiempo-color total-ciclo) ; Total del ciclo rojo 90 + 3 , amarillo 6 + 3,  verde 120 + 3 = 225 seg
     (if (and (integerp tiempo-color)(>= tiempo-color 0)(integerp total-ciclo)(>= total-ciclo 0))(* (/ tiempo-color (float total-ciclo)) 100)
         'valor-invalido
     )
