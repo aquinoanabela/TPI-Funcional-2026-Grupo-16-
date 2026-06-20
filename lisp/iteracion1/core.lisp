@@ -4,7 +4,7 @@
 ;; ESTRATEGIA: Evaluación de Patrones / Condicional Estricto 
 ;; IMPACTO EN MEMORIA: No destructiva (Retorna una lista nueva) 
 ;;========================================
-(defun transicion(color-actual cambiar-a) ;; Cambiar y hacer la validacion del ciclo Verde-amarillo amarillo-rojo  rojo-verde (hacer validacion inversa)
+(defun transicion (color-actual cambiar-a) ;; Cambiar y hacer la validacion del ciclo Verde-amarillo amarillo-rojo  rojo-verde (hacer validacion inversa)
     (let ((colores_incluidos (list 'en-rojo 'en-amarillo 'en-verde))(colores_cambio (list 'rojo 'amarillo 'verde)))
         (cond 
             ((not (member color-actual colores_incluidos)) nil) ;;Agregamos funcion para verificar que el color-actual este en los permitidos
@@ -47,7 +47,7 @@
 ;; ESTRATEGIA: Operaciones de salida
 ;; IMPACTO EN MEMORIA: No destructiva 
 ;;========================================
-(defun sistema_auditoria()
+(defun sistema_auditoria ()
     (let* ((color-nuevo (timer (- (get-universal-time) 2208988800))) ;;Se pasa por parametro el tiempo actual en segundos
         (color-anterior (cond   
                             ((eql color-nuevo 'en-verde) 'rojo)
@@ -116,7 +116,7 @@
 ;; IMPACTO: No destructiva
 ;; ========================================================
 
-(defun porcentaje(tiempo-color total-ciclo) ; Total del ciclo rojo 90 + amarillo 6 + verde 120 = 216 seg
+(defun porcentaje (tiempo-color total-ciclo) ; Total del ciclo rojo 90 + amarillo 6 + verde 120 = 216 seg
     (* (/ tiempo-color (float total-ciclo)) 100)
 )
 
@@ -126,7 +126,7 @@
 ;; ESTRATEGIA: Composicion funcional
 ;; IMPACTO: No destructiva
 ;; ========================================================
-(defun informe-distribucion-temporal()
+(defun informe-distribucion-temporal ()
     (list 'rojo (format nil "~,2f%" (porcentaje 90 (duracion-ciclo))) ;; reutilizamos la funcion duracion-ciclo
           'amarillo (format nil "~,2f%" (porcentaje 6 (duracion-ciclo))) ;; con ~,2f para formatear y quede con 2 dicimales
           'verde (format nil "~,2f%" (porcentaje 120 (duracion-ciclo)))
